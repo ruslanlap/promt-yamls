@@ -10,8 +10,10 @@ spec:
         spec:
           containers:
           - name: my-cron-job
-            image: my-cron-job-image
+            image: busybox
             args:
-            - my-cron-job-command
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
-  concurrencyPolicy: Forbid
+  concurrencyPolicy: Allow

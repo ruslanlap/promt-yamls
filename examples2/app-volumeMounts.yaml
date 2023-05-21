@@ -7,9 +7,9 @@ spec:
   - name: my-app
     image: my-app-image
     volumeMounts:
-    - name: my-app-volume
+    - name: my-app-data
       mountPath: /data
   volumes:
-  - name: my-app-volume
+  - name: my-app-data
     persistentVolumeClaim:
-      claimName: my-app-pvc
+      claimName: my-app-data-claim

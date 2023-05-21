@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: my-app
@@ -17,6 +17,3 @@ spec:
         image: my-app:latest
         ports:
         - containerPort: 8080
-        env:
-        - name: MY_ENV_VAR
-          value: "my-value"

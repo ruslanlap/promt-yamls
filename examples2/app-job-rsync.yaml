@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rsync-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: rsync
+        image: alpine/rsync
+        args:
+        - -avz
+        - /src/
+        - /dest/
+      restartPolicy: Never
+  backoffLimit: 4
