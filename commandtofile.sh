@@ -13,7 +13,7 @@ declare -A commands=(
   ["app-secret-env.yaml"]="kubectl ai 'Create a YAML manifest for defining environment variables from a secret for an application'"
 )
 
-# Створюємо папку "yaml", якщо її не існує
+# Створюємо папку "examples", якщо її не існує
 mkdir -p examples
 
 # Цикл для створення файлів і запису результатів
