@@ -14,7 +14,7 @@ declare -A commands=(
 )
 
 # Створюємо папку "yaml", якщо її не існує
-mkdir -p yaml
+mkdir -p examples
 
 # Цикл для створення файлів і запису результатів
 for filename in "${!commands[@]}"
