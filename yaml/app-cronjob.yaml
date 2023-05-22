@@ -1,0 +1,17 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: my-cron-job
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: my-cron-job
+            image: my-cron-job-image
+            args:
+            - my-cron-job-command
+          restartPolicy: OnFailure
+  concurrencyPolicy: Forbid
