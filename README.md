@@ -10,4 +10,4 @@
 | [app-resources.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-resources.yaml)           	| "Create a YAML manifest for defining resource limits and requests for an application"        	| _This YAML manifest defines resource limits and requests for an application to allocate CPU and memory._         	|    https://github.com/matvrus/yamls/blob/main/yaml/app-resources.yaml   	|
 | [app-secret-env.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-secret-env.yaml)         	| "Create a YAML manifest for defining environment variables from a secret for an application" 	| _This YAML manifest defines environment variables from a secret to be used by an application._                   	|   https://github.com/matvrus/yamls/blob/main/yaml/app-secret-env.yaml   	|
 
-update 1/02/2024
+update 01/02/2024
