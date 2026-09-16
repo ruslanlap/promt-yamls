@@ -1,0 +1,35 @@
+# Maintainer: Keyarchy contributors
+pkgname=keyarchy
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Wayland-first Omarchy and Hyprland hotkey trainer"
+arch=('x86_64' 'aarch64')
+url="https://github.com/OWNER/keyarchy"
+license=('MIT')
+depends=('gcc-libs' 'wayland' 'libxkbcommon')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  CARGO_TARGET_DIR=target cargo build --frozen --release
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  CARGO_TARGET_DIR=target cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 target/release/keyarchy "$pkgdir/usr/bin/keyarchy"
+  install -Dm644 assets/dev.keyarchy.Keyarchy.desktop \
+    "$pkgdir/usr/share/applications/dev.keyarchy.Keyarchy.desktop"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

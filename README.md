@@ -1,13 +1,68 @@
-**NAME:**                                                                                                        	|                                          **PROMPT:**                                         	|                                                 **DESCRIPTION:**                                                 	|                               **EXAMPLE:**                              	|
-|------------------------------------------------------------------------------------------------------------------	|:--------------------------------------------------------------------------------------------:	|:----------------------------------------------------------------------------------------------------------------:	|:-----------------------------------------------------------------------:	|
-| [app.yaml](https://github.com/matvrus/yamls/blob/main/examples/app.yamlyaml/app.yaml)                            	| "Create a YAML manifest for deploying an application"                                        	| _This YAML manifest defines the deployment and service for an application._                                      	|         https://github.com/matvrus/yamls/blob/main/yaml/app.yaml        	|
-| [app-livenessProbe.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-livenessProbe.yaml)   	| "Create a YAML manifest for defining a liveness probe for an application"                    	| _This YAML manifest defines a liveness probe for an application to ensure its health._                           	|  https://github.com/matvrus/yamls/blob/main/yaml/app-livenessProbe.yaml 	|
-| [app-readinessProbe.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-readinessProbe.yaml) 	| "Create a YAML manifest for defining a readiness probe for an application"                   	| _This YAML manifest defines a readiness probe for an application to determine if it's ready to receive traffic._ 	| https://github.com/matvrus/yamls/blob/main/yaml/app-readinessProbe.yaml 	|
-| [app-volumeMounts.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-volumeMounts.yaml)     	| "Create a YAML manifest for defining volume mounts for an application"                       	| _This YAML manifest defines volume mounts for an application to access shared storage._                          	|  https://github.com/matvrus/yamls/blob/main/yaml/app-volumeMounts.yaml  	|
-| [app-cronjob.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-cronjob.yaml)               	| "Create a YAML manifest for defining a cron job"                                             	| _This YAML manifest defines a cron job to schedule periodic tasks._                                              	|     https://github.com/matvrus/yamls/blob/main/yaml/app-cronjob.yaml    	|
-| [app-job-rsync.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-job-rsync.yaml)           	| "Create a YAML manifest for defining a job to perform an rsync operation"                    	| _This YAML manifest defines a job to perform a file synchronization using rsync._                                	|    https://github.com/matvrus/yamls/blob/main/yaml/app-job-rsync.yaml   	|
-| [app-multicontainer.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-multicontainer.yaml) 	| "Create a YAML manifest for defining a multi-container application"                          	| _This YAML manifest defines a multi-container application with multiple containers running together._            	| https://github.com/matvrus/yamls/blob/main/yaml/app-multicontainer.yaml 	|
-| [app-resources.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-resources.yaml)           	| "Create a YAML manifest for defining resource limits and requests for an application"        	| _This YAML manifest defines resource limits and requests for an application to allocate CPU and memory._         	|    https://github.com/matvrus/yamls/blob/main/yaml/app-resources.yaml   	|
-| [app-secret-env.yaml](https://raw.githubusercontent.com/matvrus/yamls/main/examples/app-secret-env.yaml)         	| "Create a YAML manifest for defining environment variables from a secret for an application" 	| _This YAML manifest defines environment variables from a secret to be used by an application._                   	|   https://github.com/matvrus/yamls/blob/main/yaml/app-secret-env.yaml   	|
+# Keyarchy
 
-update 01/02/2024
+Keyarchy is a Wayland-first desktop trainer for learning Omarchy and Hyprland
+keyboard shortcuts. It reads the shortcuts you actually use, presents focused
+practice challenges, and stores progress locally.
+
+## Features
+
+- Native Rust desktop UI powered by [Iced](https://iced.rs/).
+- Parses `bind*` declarations, variables, and recursively sourced Hyprland
+  configuration files.
+- Captures shortcuts only while the trainer has focus—no global keylogger and
+  no compositor-specific permissions.
+- Adaptive practice prioritizes shortcuts with the lowest mastery.
+- XP, response-time scoring, streaks, per-shortcut accuracy, and weak-key view.
+- XDG-compliant JSON progress storage with atomic writes.
+- Dark Tokyo Night theme suitable for the Omarchy desktop.
+
+## Install and run
+
+Install the Arch build dependencies and run from source:
+
+```bash
+sudo pacman -S --needed base-devel rust
+cargo run --release
+```
+
+By default Keyarchy reads `~/.config/hypr/hyprland.conf`. Pass a different
+file or Hyprland configuration directory when needed:
+
+```bash
+cargo run --release -- --config ~/.config/hypr/hyprland.conf
+```
+
+While practicing, keep the Keyarchy window focused. The compositor may still
+consume reserved shortcuts before the application receives them. For a fully
+isolated session, use a temporary Hyprland submap or duplicate a binding with
+an unreserved training combination.
+
+## Data and privacy
+
+Keyarchy does not use network access and does not capture keyboard input while
+unfocused. Progress is saved under the platform XDG data directory, normally:
+
+```text
+~/.local/share/keyarchy/Keyarchy/progress.json
+```
+
+## Development
+
+```bash
+cargo fmt --check
+cargo clippy --all-targets --all-features -- -D warnings
+cargo test
+```
+
+The application is split into state/update logic, UI pages, input
+normalization, Hyprland parsing, learning/scoring, and persistence modules under
+`src/`.
+
+## Arch package
+
+`packaging/arch/PKGBUILD` is a source-package template. Update its source URL
+and checksum after publishing a tagged release, then build with `makepkg -si`.
+
+## License
+
+MIT

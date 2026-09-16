@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Keyarchy
+Comment=Learn your Omarchy and Hyprland keyboard shortcuts
+Exec=keyarchy
+Icon=input-keyboard
+Terminal=false
+Categories=Education;Utility;
+Keywords=Omarchy;Hyprland;Keyboard;Shortcuts;Trainer;
+StartupNotify=true
+
